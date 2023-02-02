@@ -1,13 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import useStore from "../for_game/store";
 
 function BteamItem() {
   const {
     cur_session,
-    BItem1,
-    BItem2,
-    BItem3,
-    BItem4,
     BsignalSent1,
     BsignalSent2,
     BsignalSent3,

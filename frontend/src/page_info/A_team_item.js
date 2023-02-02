@@ -5,10 +5,6 @@ import './itemEffect.css'
 function AteamItem() {
   const {
     cur_session,
-    AItem1,
-    AItem2,
-    AItem3,
-    AItem4,
     AsignalSent1,
     AsignalSent2,
     AsignalSent3,

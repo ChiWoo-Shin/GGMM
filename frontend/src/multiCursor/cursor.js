@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback, useMemo} from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import socket from "../socket/socket";
 import useStore from "../for_game/store";
 import cloneDeep from "lodash/cloneDeep";
@@ -21,8 +21,6 @@ function Cursor({sessionId, participantName}){
       mouse_color = "red";
     }
   };
-    
-      
   
     let cursor;
     const mouseFunc = (e) => {
@@ -56,7 +54,6 @@ function Cursor({sessionId, participantName}){
         });
       });
       return() => {
-        console.log("나간 유저는 : ", participantName);
         socket.removeAllListeners("deleteCursor");
         socket.emit("exitShareEditing", [sessionId, participantName]);
         setPosition({});
@@ -64,7 +61,6 @@ function Cursor({sessionId, participantName}){
       };
     }, []);
 
-    // 다른 유저의 마우스 커서 정보를 받아 온다.
   const cursorUpdateEvent = useCallback(() => {
     socket.on("cursor", (userInfo) => {
 

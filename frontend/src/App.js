@@ -27,7 +27,6 @@ import useStore from "./for_game/store";
 
 var timer = 500;
 
-// const APPLICATION_SERVER_URL = "http://localhost:5000/";
 const APPLICATION_SERVER_URL = "https://practiceggmm.shop/";
 
 class webCam extends Component {
@@ -53,7 +52,6 @@ class webCam extends Component {
   }
 
   componentDidMount() {
-    //초대링크 타고 들어왔을 때 동작하는 part
     window.addEventListener("beforeunload", this.onbeforeunload);
     const url = new URL(window.location.href);
     const sessionId = url.searchParams.get("sessionId");
@@ -63,34 +61,18 @@ class webCam extends Component {
         mySessionId: sessionId,
       });
       this.joinSession();
-    } else {
-      console.log("Invalid Session Link");
     }
   }
 
   componentDidUpdate() {
-    //타이머 동기화
     if (this.state.session !== undefined) {
       this.state.session.on("signal:timer", (event) => {
         let message = JSON.parse(event.data);
         useStore.getState().set_Curtime(message.timer);
-        useStore.getState().set_cur_round(0); // 미니게임 시작
-        useStore.getState().fetchCardIndex(); // 미니게임 카드 index 요청
+        useStore.getState().set_cur_round(0); 
+        useStore.getState().fetchCardIndex(); 
         this.forceUpdate();
       });
-
-      //점수 동기화
-      // this.state.session.on("signal:score", (event) => {
-      //   let message = JSON.parse(event.data);
-      //   // console.log("시그널 확인(score) : " + message.score);
-      //   useStore.getState().set_CntAns(message.score);
-      //   if (useStore.getState().cur_who_turn === "red") {
-      //     useStore.getState().set_CurRed_cnt(message.score);
-      //   }
-      //   if (useStore.getState().cur_who_turn === "blue") {
-      //     useStore.getState().set_CurBlue_cnt(message.score);
-      //   }
-      // });
 
       this.state.session.on("signal:game_start", (event) => {
         let message = JSON.parse(event.data);
@@ -98,7 +80,6 @@ class webCam extends Component {
         useStore.getState().set_time_change("change");
       });
 
-      //item 사용 signal
       this.state.session.on("signal:AItem1", (event) => {
         let message = JSON.parse(event.data);
         useStore.getState().set_AItem1(message.AItem1);
@@ -132,35 +113,29 @@ class webCam extends Component {
 
       this.state.session.on("signal:BItem4", (event) => {
         let message = JSON.parse(event.data);
-        // console.log("222222222222222");
         useStore.getState().set_BItem4(message.BItem4);
       });
-      //현재 술래 신호
+      
       this.state.session.on("signal:cur_teller", (event) => {
         let message = JSON.parse(event.data);
         useStore.getState().set_cur_teller(message.cur_teller);
       });
 
-      // pass 시 동기화
       this.state.session.on("signal:pass", (event) => {
         let message = JSON.parse(event.data);
         useStore.getState().set_pass_cnt(message.pass_cnt);
       });
 
-      // 게임 종료 signal
       this.state.session.on("signal:game_end", () => {
         this.forceUpdate();
       });
 
-      // 미니게임 결과 signal
       this.state.session.on("signal:Total_score", (event) => {
         let message = JSON.parse(event.data);
-        // console.log("totalscore : ", message.Total_score);
         useStore.getState().set_card_game_end(message.Total_score);
 
         if (useStore.getState().card_game_end >= 10) {
           useStore.getState().set_cur_round(1);
-          // console.log("mini game_over");
           useStore.getState().set_turn_state_change("result_minigame");
           this.forceUpdate();
         }
@@ -196,13 +171,12 @@ class webCam extends Component {
       () => {
         var mySession = this.state.session;
         useStore.getState().set_session_change(this.state.session);
-        //zustand에 session값 저장
         mySession.on("streamCreated", (event) => {
-          var subscriber = mySession.subscribe(event.stream, undefined); // 현재 내 정보를 subscribe하고
-          var subscribers = this.state.subscribers; // 현재 state.subscribers에 있는 것을 subscribers에 넣고
+          var subscriber = mySession.subscribe(event.stream, undefined); 
+          var subscribers = this.state.subscribers; 
 
           const addSubscriber = (subscriber, subscribers) => {
-            subscribers.push(subscriber); // subscribers에 subscriber(나) 를 집어 넣음
+            subscribers.push(subscriber); 
             useStore.getState().setGamers({
               name: JSON.parse(event.stream.connection.data).clientData,
               streamManager: subscriber,
@@ -247,17 +221,16 @@ class webCam extends Component {
           mySession
             .connect(token, { clientData: this.state.myUserName })
             .then(async () => {
-              console.log("여기가 getToken");
 
               let publisher = await this.OV.initPublisherAsync(undefined, {
-                audioSource: undefined, // The source of audio. If undefined default microphone
-                videoSource: undefined, // The source of video. If undefined default webcam
-                publishAudio: true, // Whether you want to start publishing with your audio unmuted or not
-                publishVideo: true, // Whether you want to start publishing with your video enabled or not
-                resolution: "640x480", // The resolution of your video
-                frameRate: 30, // The frame rate of your video
-                insertMode: "APPEND", // How the video is inserted in the target element 'video-container'
-                mirror: false, // Whether to mirror your local video or not
+                audioSource: undefined, 
+                videoSource: undefined,
+                publishAudio: true, 
+                publishVideo: true, 
+                resolution: "640x480", 
+                frameRate: 30,
+                insertMode: "APPEND", 
+                mirror: false,
               });
               mySession.publish(publisher);
 
@@ -267,11 +240,6 @@ class webCam extends Component {
               });
 
               useStore.getState().set_myUserID(this.state.myUserName);
-              console.log("publisher setGamers : after");
-              console.log(useStore.getState().gamers);
-              console.log(useStore.getState().gamers[0].name);
-              console.log(useStore.getState().gamers[0].streamManager);
-              console.log("id is :  " + useStore.getState().myUserID);
               this.setState({
                 publisher: publisher,
               });
@@ -287,6 +255,7 @@ class webCam extends Component {
       }
     );
   }
+
   oneMoregame() {
     useStore.getState().set_Curtime(1000000);
     useStore.getState().set_cur_round(-1);
@@ -298,6 +267,7 @@ class webCam extends Component {
     useStore.getState().set_pass_cnt(0);
     this.forceUpdate();
   }
+
   leaveSession() {
     const mySession = this.state.session;
     if (mySession) {
@@ -317,7 +287,6 @@ class webCam extends Component {
   }
 
   sendTimer() {
-    console.log(timer);
     const message = {
       timer: timer,
     };
@@ -327,6 +296,7 @@ class webCam extends Component {
       data: JSON.stringify(message),
     });
   }
+
   render() {
     const mySessionId = this.state.mySessionId;
     const myUserName = this.state.myUserName;
@@ -627,7 +597,7 @@ class webCam extends Component {
         headers: { "Content-Type": "application/json" },
       }
     );
-    return response.data; // The sessionId
+    return response.data;
   }
   async createToken(sessionId) {
     const response = await axios.post(
@@ -637,7 +607,7 @@ class webCam extends Component {
         headers: { "Content-Type": "application/json" },
       }
     );
-    return response.data; // The token
+    return response.data;
   }
 }
 

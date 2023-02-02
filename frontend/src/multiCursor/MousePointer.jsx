@@ -1,5 +1,4 @@
 import React from "react";
-// const MousePointer = ({ color }) => {
 const MousePointer = ({color}) => {
 
   return (

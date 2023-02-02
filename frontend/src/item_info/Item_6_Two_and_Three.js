@@ -1,5 +1,5 @@
 // 4분할 해서 순서 섞기
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import "./Item.css";
 
 const ItemSix = ({ streamManager }) => {

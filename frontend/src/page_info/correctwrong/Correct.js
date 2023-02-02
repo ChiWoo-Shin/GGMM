@@ -2,7 +2,7 @@ import './Correct.css';
 import 'galmuri/dist/galmuri.css';
 
 
-function Correct({answer}) {
+function Correct() {
   return (
 
     <div className="circle" >

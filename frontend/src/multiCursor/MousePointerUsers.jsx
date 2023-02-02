@@ -23,7 +23,6 @@ const MousePointerUsers = ({ positions}) => {
         }
 
         return (
-        //   <div className="online-item" key={positionId}>
           <div key={positionId}>
             {position.mousePointer && position.mousePointer.left != null && (
               <div
@@ -31,9 +30,7 @@ const MousePointerUsers = ({ positions}) => {
                 className="cursor-block"
                 style={{ left, top, zIndex: 999 }}
               >
-                {/* <MousePointer color={userColor} /> */}
                 <MousePointer color={position.mousecolor}/>
-                {/* <div className="cursor-name-container"> */}
                 <div>
                 </div>
               </div>

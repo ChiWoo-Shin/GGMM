@@ -1,5 +1,5 @@
 // 좌좌 복사하기
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import "./Item.css";
 
 const ItemFour = ({ streamManager }) => {
@@ -15,13 +15,9 @@ const ItemFour = ({ streamManager }) => {
       canvasRef.current.width = videoRef.current.videoWidth;
       canvasRef.current.height = videoRef.current.videoHeight;
       const ctx = canvasRef.current.getContext("2d");
-      // Draw the video frame-by-frame onto the canvas
       function drawFrame() {
-        // Check if the video has ended
 
         if (videoRef.current && !videoRef.current.ended) {
-          // Draw the video frame to the canvas
-          // Call this function again to draw the next frame
 
           ctx.translate(canvasRef.current.width, 0);
           ctx.scale(-1, 1);

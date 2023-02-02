@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useState, useRef } from "react";
+import React, { useEffect } from "react";
 import Card from './Card_info';
 import Cursor from "../multiCursor/cursor";
 import './card.css'
@@ -16,10 +16,8 @@ function CardGame({ sessionId, participantName }) {
 
   const click_handler = (cardId) => {
     socket.emit("flipingcard", sessionId, my_index, cardId, MiniCardIndex);
-    console.log("지금 누른 카드는 : ", cardId.i, my_index);
 
     if (MiniCardIndex.includes(cardId.i)) {
-      console.log("아이템 누르면 들어오냐????????");
       if ((my_index + 1) % 2 === 0) {
         console.log("blue : ", card_game_blue);
         socket.emit("score", sessionId, cardId, my_index);
@@ -46,14 +44,12 @@ function CardGame({ sessionId, participantName }) {
           data: JSON.stringify(message),
         });
 
-      console.log("red, blue", red_score, blue_score)
     });
   }, []);
 
   useEffect(() => {
     socket.on("CardFliped", (my_index, flipedCardId, ItemIndex) => {
       const clicked_card = document.getElementById(flipedCardId);
-      console.log("너 설마 모르냐?", ItemIndex);
 
       if (ItemIndex.includes(flipedCardId)) {
         if ((my_index + 1) % 2 === 0) {

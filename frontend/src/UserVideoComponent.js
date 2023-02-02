@@ -1,4 +1,4 @@
-import React, { Component, useEffect } from "react";
+import React, { useEffect } from "react";
 import OpenViduVideoComponent from "./OvVideo";
 import "./UserVideo.css";
 
@@ -14,9 +14,9 @@ import OpenViduVideoComponent_sulae from "./item_info/OvVideo_sulea";
 
 import useStore from "./for_game/store";
 
-const UserVideoComponent = ({ streamManager, my_name, video_index }) => {
+const UserVideoComponent = ({ streamManager, video_index }) => {
   const { cur_turn_states } = useStore();
-  const { AItem1, AItem2, AItem3, AItem4, BItem1, BItem2, BItem3, BItem4} = useStore();
+  const { AItem1, AItem2, AItem3, BItem1, BItem2, BItem3 } = useStore();
   const { cur_teller } = useStore();
 
   useEffect(() => {}, [
@@ -44,9 +44,6 @@ const UserVideoComponent = ({ streamManager, my_name, video_index }) => {
             {!(cur_teller === video_index) ? (
               <OpenViduVideoComponent streamManager={streamManager} />
             ) 
-            // : (AItem4 == true || BItem4 == true) ? (
-            //   <> <Shutter/> <OpenViduVideoComponent_sulae streamManager={streamManager} /></>
-            // ) 
             : (AItem1 == true && AItem2 == true && AItem3 == true) ||
               (BItem1 == true && BItem2 == true && BItem3 == true) ? (
               <ItemSevenAll streamManager={streamManager} />

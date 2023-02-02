@@ -3,11 +3,6 @@ import useStore from "./store";
 import UserVideoComponent from "../UserVideoComponent";
 import "./main_timer.css";
 
-navigator.getUserMedia =
-  navigator.getUserMedia ||
-  navigator.webkitGetUserMedia ||
-  navigator.mozGetUserMedia;
-
 function Main_timer() {
   const { set_CntAns } = useStore();
   const { cur_time, time_state, set_time_change } = useStore();
@@ -18,9 +13,9 @@ function Main_timer() {
     useStore();
   const { curRed_total, set_CurRed_total, curBlue_total, set_CurBlue_total } =
     useStore();
-  const { is_my_turn, set_my_turn } = useStore();
-  const { is_my_team_turn, set_myteam_turn, setPublishAudio } = useStore();
-  const { cur_teller, set_cur_teller } = useStore();
+  const { set_my_turn } = useStore();
+  const { is_my_team_turn} = useStore();
+  const { cur_teller } = useStore();
   const { my_team_win, set_my_team_win } = useStore();
   const {
     myUserID,
@@ -28,11 +23,7 @@ function Main_timer() {
     my_index,
     player_count,
     cur_session,
-    card_game_red,
-    card_game_blue,
   } = useStore();
-
-  const { AItem1, AItem2, AItem3, BItem1, BItem2, BItem3 } = useStore();
 
   const [sec, setSec] = useState(0);
   const [msec, setMsec] = useState(0);
@@ -79,7 +70,6 @@ function Main_timer() {
       setSec(cur_time);
       setMsec(0);
       set_turn_state_change("game");
-      // console.log("게임 시작");
       set_time_change("no_change");
     }
   }, [time_state]);
@@ -88,14 +78,11 @@ function Main_timer() {
     if (cur_round > 1) {
       if (curBlue_cnt > curRed_cnt) {
         set_CurBlue_total(curBlue_total + 1);
-        // console.log("블루가 이겼습니다.");
       } else if (curBlue_cnt < curRed_cnt) {
         set_CurRed_total(curRed_total + 1);
-        // console.log("레드가 이겼습니다.");
       } else {
         set_CurBlue_total(curBlue_total + 1);
         set_CurRed_total(curRed_total + 1);
-        // console.log("비겼습니다.");
       }
       set_CurBlue_cnt(0);
       set_CurRed_cnt(0);
@@ -103,7 +90,6 @@ function Main_timer() {
   }, [cur_round]);
   useEffect(() => {
     if (cur_round > 3) {
-      console.log("레드, 블루 점수 : ", curRed_total, curBlue_total);
       if (
         (my_index % 2 === 0 && curRed_total >= curBlue_total) ||
         (my_index % 2 === 1 && curBlue_total >= curRed_total)
@@ -153,7 +139,6 @@ function Main_timer() {
   }, [currentIndex.current]);
 
   useEffect(() => {
-    console.log("팀 바꼈냐?" + is_my_team_turn);
   }, [is_my_team_turn]);
 
   const game_loop = () => {

@@ -7,8 +7,6 @@ import './Card_Game_Boad.css';
 // Homepage sound
 import useSound from "use-sound";
 import homeSound from "../audio/home.mp3"
-import Cursor from '../multiCursor/cursor';
-
 
 export default function Card_Game_Boad({ sessionId, participantName }) {
   const [CountDownShow, setCountDownShow] = useState(true);

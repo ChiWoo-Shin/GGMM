@@ -10,13 +10,11 @@ import "./S_word.css";
 function S_words_Down() {
   let [show, setShow] = useState([]);
 
-  //ZUSTAND
-  const { cnt_answer, set_CntAns, cur_session, cur_turn_states, cur_round } =
+  const { cnt_answer, set_CntAns, cur_session, cur_round } =
     useStore();
   const { is_my_turn, cur_who_turn, my_index, cur_teller } = useStore();
   const { gamerWords, fetchGamerWords } = useStore();
 
-  //USE Sound
   const [good] = useSound(good_sound);
   const [bad] = useSound(bad_sound);
 
@@ -64,8 +62,6 @@ function S_words_Down() {
   useEffect(() => {
     if (number !== 0) {
       sendScore();
-      console.log("showIndex 0이어야함 : ", showIndex)
-      console.log("show.legnth : ", show.length)
       // if (showIndex < show.length - 1) {
       //   nextShow();
       //   good();
@@ -93,7 +89,6 @@ function S_words_Down() {
 
   useEffect(() => {
     if (pass_cnt > 0) {
-      console.log("pass_cnt 변경", pass_cnt);
       nextShow();
     }
   }, [pass_cnt]);
@@ -136,7 +131,6 @@ function S_words_Down() {
           }, 500);
         } else {
           bad();
-          console.log("wrong", answer, cur_session.sessionId);
           setWrongAnswer(true);
           setTimeout(() => {
             setWrongAnswer(false);
@@ -154,7 +148,6 @@ function S_words_Down() {
   useEffect(() => {
     cur_session.on("signal:score", (event) => {
       let message = JSON.parse(event.data);
-      // console.log("시그널 들어오니?");
       set_CntAns(message.score);
       if (cur_who_turn === "red") {
         set_CurRed_cnt(message.score);
@@ -172,7 +165,7 @@ function S_words_Down() {
   }, [cur_round])
 
   useEffect(() => {
-    console.log("시그널 인지?");
+    console.log("시그널");
   }, [curRed_cnt, curBlue_cnt]);
   return (
     <>

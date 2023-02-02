@@ -10,7 +10,7 @@ function S_words_Up() {
   let [show, setShow] = useState([]);
 
   //ZUSTAND
-  const { cnt_answer, set_CntAns, cur_session, cur_turn_states, cur_round } =
+  const { cnt_answer, cur_session, cur_turn_states, cur_round } =
     useStore();
   const { is_my_turn, cur_who_turn, my_index, cur_teller } = useStore();
   const { gamerWords, fetchGamerWords } = useStore();
@@ -21,7 +21,6 @@ function S_words_Up() {
 
   let [show_name, setShow_name] = useState("--------");
   let [show_theme, setShow_theme] = useState("");
-  const [answer, setAnswer] = useState("");
   let [number, setNumber] = useState(cnt_answer);
   const [showIndex, setShowIndex] = useState(0);
   const { is_my_team_turn, set_myteam_turn } = useStore();
@@ -42,7 +41,6 @@ function S_words_Up() {
   useEffect(() => {
     if (gamerWords.length > 0 && cur_round > 0) {
       const arr = gamerWords[cur_round - 1];
-      // console.log("arr[showIndex] : ", show);
       setShow_name(arr[showIndex].name);
       setShow_theme(arr[showIndex].theme);
     }
@@ -53,10 +51,6 @@ function S_words_Up() {
   }, [cnt_answer]);
   useEffect(() => {
     if (number !== 0) {
-      // if (showIndex < show.length - 1) {
-      //   nextShow();
-      //   good();
-      // }
       if (showIndex < 20) {
         nextShow();
         good();
@@ -84,7 +78,6 @@ function S_words_Up() {
   },[cur_round])
   useEffect(() => {
     if (pass_cnt > 0) {
-      // console.log("pass_cnt 변경", pass_cnt);
       nextShow();
     }
   }, [pass_cnt]);

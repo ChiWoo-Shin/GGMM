@@ -18,7 +18,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  /* animation-delay: 1s; */
   animation: shutters 5s infinite alternate ease-in-out;
   }
 

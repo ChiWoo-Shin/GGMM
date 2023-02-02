@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import UserVideoComponent from "../UserVideoComponent";
 import useStore from "../for_game/store";
 import "./Main_Screen.css";
@@ -18,23 +18,17 @@ function Main_Screen() {
 
   useEffect(() => {
     if (cur_session !== undefined) {
-      console.log("게이머 정보 추가");
       set_player_count(gamers.length);
-      console.log(gamers);
     }
     sortGamer();
-    gamers.map((a, i) => {
-      console.log("sorting이 제대로 되는가", a.name);
-    });
+    
   }, [gamers]);
 
   useEffect(() => {
     if (cur_session !== undefined) {
       for (var i = 0; i < player_count; i++) {
-        console.log("player count :" + player_count);
         if (gamers[i]) {
           if (myUserID === { gamers }.gamers[i].name) {
-            console.log("나의 인덱스 :" + i);
             set_my_index(i);
           }
         }
@@ -43,11 +37,11 @@ function Main_Screen() {
   }, [player_count]);
 
   useEffect(() => {
-    console.log("인덱스 변경" + my_index);
+    console.log("index");
   }, [my_index]);
 
   useEffect(() => {
-    console.log("cur_teller 변경", cur_teller);
+    console.log("teller");
   }, [cur_teller]);
 
   return (

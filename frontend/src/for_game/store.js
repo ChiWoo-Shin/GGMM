@@ -1,11 +1,9 @@
 import create from "zustand";
 import axios from "axios";
 
-// const APPLICATION_SERVER_URL = "http://localhost:5000/";
 const APPLICATION_SERVER_URL = "https://practiceggmm.shop/";
 
 const useStore = create((set) => ({
-  //치우
   gamers: [],
   setGamers: (gamer) => {
     set((state) => ({
@@ -83,7 +81,7 @@ const useStore = create((set) => ({
 
   myUserID: "none",
   set_myUserID: (input) => set({ myUserID: input }),
-  //경준
+  
   cur_time: 1000000,
   set_Curtime: (input) => set({ cur_time: input }),
 
@@ -93,7 +91,6 @@ const useStore = create((set) => ({
   cnt_answer: 0,
   set_CntAns: (input) => set(() => ({ cnt_answer: input })),
 
-  //Team 별  round 점수
   curRed_cnt: 0,
   set_CurRed_cnt: (input) => set(() => ({ curRed_cnt: input })),
   curBlue_cnt: 0,
@@ -109,7 +106,7 @@ const useStore = create((set) => ({
   cur_turn_states: "room",
   set_turn_state_change: (input) => set({ cur_turn_states: input }),
 
-  cur_who_turn: "none", //누구 턴인지
+  cur_who_turn: "none",
   set_who_turn: (input) => set({ cur_who_turn: input }),
 
   cur_round: -1,
@@ -118,7 +115,7 @@ const useStore = create((set) => ({
   cur_teller: -1,
   set_cur_teller: (input) => set({ cur_teller: input }),
 
-  is_my_turn: false, //내가 이야기 꾼인지?
+  is_my_turn: false,
   set_my_turn: (input) => set({ is_my_turn: input }),
 
   is_my_team_turn: false,

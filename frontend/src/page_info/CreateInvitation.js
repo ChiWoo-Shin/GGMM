@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import Stack from "@mui/material/Stack";
-import Button from "@mui/material/Button";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 
@@ -14,14 +13,12 @@ function CreateInvitation({ mySessionId }) {
 
   function createLink_and_copy() {
     let sessionId = mySessionId;
-    // let invitationLink = "http://localhost:3000/join?sessionId=" + sessionId;
     let invitationLink =
       "https://practiceggmm.shop/join?sessionId=" + sessionId;
 
     navigator.clipboard
       .writeText(invitationLink)
       .then(() => {
-        console.log("Invitation link copied to clipboard");
         setInvLink(true);
         setOpen(true);
       })
